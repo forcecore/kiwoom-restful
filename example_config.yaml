@@ -1,0 +1,6 @@
+restful_server:
+    port: 5432
+
+client:
+    server_url: http://localhost:5432
+    account_num: "0000001234"
