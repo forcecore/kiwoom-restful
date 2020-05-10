@@ -1,8 +1,10 @@
+#!/usr/bin/env python
 """
 Make requests to the Kiwoom API bridge server
 """
 import os
 import requests
+from omegaconf import OmegaConf
 
 
 class KiwoomRestAPI:
@@ -92,11 +94,10 @@ class KiwoomRestAPI:
 
 
 if __name__ == "__main__":
-    from omegaconf import OmegaConf
-    cfg = OmegaConf.load("~/.config/kiwoom/kiwoom.yaml")
+    cfg = OmegaConf.load(os.path.expanduser("~/.config/kiwoom/kiwoom.yaml"))
     account_num = cfg.client.account_num
 
-    ex = KiwoomRestAPI(server_url)
+    ex = KiwoomRestAPI(cfg)
     #ex.market_order(account_num, "233740", 10)
     #ex.limit_order(account_num, "233740", -5, 13000)
     balance = ex.balance(account_num)
