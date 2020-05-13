@@ -46,7 +46,9 @@ class KiwoomRestAPI:
             "type": ty,
             "accno": accno,
         }
-        requests.post(self.order_url, json=data)
+        resp = requests.post(self.order_url, json=data)
+        result = resp.json()
+        return result
 
     def limit_order(self, accno, code, qty, price):
         """
@@ -65,7 +67,9 @@ class KiwoomRestAPI:
             "type": "limit",
             "accno": accno,
         }
-        requests.post(self.order_url, json=data)
+        resp = requests.post(self.order_url, json=data)
+        result = resp.json()
+        return result
 
     def balance(self, accno):
         """
@@ -98,7 +102,9 @@ if __name__ == "__main__":
     account_num = cfg.client.account_num
 
     ex = KiwoomRestAPI(cfg)
-    #ex.market_order(account_num, "233740", 10)
-    #ex.limit_order(account_num, "233740", -5, 13000)
+    #resp = ex.market_order(account_num, "233740", 10)
+    #print(resp)
+    #resp = ex.limit_order(account_num, "233740", -5, 13000)
+    #print(resp)
     balance = ex.balance(account_num)
     print(balance)
