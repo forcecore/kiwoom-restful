@@ -106,7 +106,7 @@ class OrderHandler(RequestHandler):
             rqName=rqName,
             scrNo="8949",  # Dummy, any input will work.
             accNo=data["accno"],
-            orderType=1,  # 신규매수
+            orderType=nOrderType,  # 신규매수
             code=code,
             qty=qty,
             price=price,
