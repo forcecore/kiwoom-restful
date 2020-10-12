@@ -19,7 +19,7 @@ ex = KiwoomRestAPI(cfg)
 balance = ex.balance(accno)  # accno == 계좌번호
 print("balance:", balance)
 
-code = "251340"
+code = "A251340"
 cnt = 100
 ex.market_order(accno, code, cnt)  # 시장가 매수
 ex.market_order(accno, code, -cnt)  # 시장가 매도
