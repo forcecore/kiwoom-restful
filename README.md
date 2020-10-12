@@ -16,7 +16,7 @@ Import kiwoom_restful_server, instantiate then call functions:
 ```
 from kiwoom_restful_client import KiwoomRestAPI
 ex = KiwoomRestAPI(cfg)
-balance = ex.balance(accno)  # Put 계좌번호
+balance = ex.balance(accno)  # accno == 계좌번호
 print("balance:", balance)
 
 code = "251340"
