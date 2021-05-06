@@ -98,7 +98,7 @@ class KiwoomRestAPI:
 
 
 if __name__ == "__main__":
-    cfg = OmegaConf.load(os.path.expanduser("~/.config/kiwoom/kiwoom.yaml"))
+    cfg = OmegaConf.load(os.path.expanduser("~/.ssh/kiwoom.yaml"))
     account_num = cfg.client.account_num
 
     ex = KiwoomRestAPI(cfg)
