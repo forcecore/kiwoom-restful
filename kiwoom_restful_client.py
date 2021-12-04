@@ -37,14 +37,25 @@ class KiwoomRestAPI:
         """
         if qty == 0:
             return # Nothing to do.
+        elif qty > 0:
+            orderty = 1  # 신규매수
+        else:
+            orderty = 2  # 신규매도
+            qty = -qty
+        assert qty > 0, f"qty should be a positive integer by now, got {qty}"
 
-        ty = "premarket" if premarket else "market"
+        if not premarket:
+            hogagb = "03"  # 시장가
+        else:
+            hogagb = "61"  # 장전시간외종가
+
         data = {
-            "qty": qty,
-            "price": 0,
-            "code": code,
-            "type": ty,
             "accno": accno,
+            "code": code,
+            "qty": qty,
+            "price": 0,  # 0 for market order
+            "ordertype": orderty,
+            "hogagb": hogagb,
         }
         resp = requests.post(self.order_url, json=data)
         result = resp.json()
@@ -59,13 +70,20 @@ class KiwoomRestAPI:
         """
         if qty == 0:
             return # Nothing to do.
+        elif qty > 0:
+            orderty = 1  # 신규매수
+        else:
+            orderty = 2  # 신규매도
+            qty = -qty
+        assert qty > 0, f"qty should be a positive integer by now, got {qty}"
 
         data = {
-            "qty": qty,
-            "price": price,
-            "code": code,
-            "type": "limit",
             "accno": accno,
+            "code": code,
+            "qty": qty,
+            "price": price,  # 0 for market order
+            "ordertype": orderty,
+            "hogagb": "00",
         }
         resp = requests.post(self.order_url, json=data)
         result = resp.json()
@@ -85,6 +103,7 @@ class KiwoomRestAPI:
             "accno": accno
         }
         resp = requests.post(self.balance_url, json=data)
+        print(resp)
         result = resp.json()
 
         # You get '0' as count for things you sold. Remove them.
@@ -102,9 +121,9 @@ if __name__ == "__main__":
     account_num = cfg.client.account_num
 
     ex = KiwoomRestAPI(cfg)
+    balance = ex.balance(account_num)
+    print(balance)
     #resp = ex.market_order(account_num, "233740", 10)
     #print(resp)
     #resp = ex.limit_order(account_num, "233740", -5, 13000)
     #print(resp)
-    balance = ex.balance(account_num)
-    print(balance)
